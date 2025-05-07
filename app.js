@@ -32,7 +32,7 @@ app.get('/', async function (req, res) {
     }
 });
 
-app.get('/releases', async function (req, res) {
+app.get('/bsg-people', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds

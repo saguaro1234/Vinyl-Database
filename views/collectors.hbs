@@ -1,0 +1,17 @@
+<h1>Home page</h1>
+<div class="homepageDescription">
+    <p>Developer information and Project overview here.</p>
+</div>
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each collectors.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+</table>

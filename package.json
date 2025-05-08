@@ -7,7 +7,7 @@
     "development": "npx nodemon app.js",
     "production": "npx forever start app.js",
     "stop_production": "npx forever stop app.js"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saguaro1234/Vinyl-Database.git"
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/saguaro1234/Vinyl-Database#readme",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
     "forever": "^4.0.3",

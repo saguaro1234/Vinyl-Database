@@ -14,4 +14,19 @@
             <th></th>
         </tr>
     </thead>
+
+      <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each collectors}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.address}}</td>
+            
+
+            
+        </tr>
+        {{/each}}
+    </tbody>
 </table>
+

@@ -79,6 +79,52 @@ app.get('/collectors', async function (req, res) {
 });
 
 
+app.get('/albums', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT albumID, title
+                        FROM albums
+                        ORDER BY title ASC;`;
+        
+        const [albums] = await db.query(query1);
+        ;
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('albums', { albums: albums });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.get('/collectors-releases', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT releaseID, albumID, recordLabel, releaseDate, price
+                        FROM releases
+                        ORDER BY releaseID ASC;`;
+        
+        const [releases] = await db.query(query1);
+        ;
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('collectors-releases', { releases: releases });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
 // ########################################
 // ########## LISTENER
 

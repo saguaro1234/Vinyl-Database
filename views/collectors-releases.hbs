@@ -1,0 +1,34 @@
+
+<h1>Home page</h1>
+<div class="homepageDescription">
+    <p>Developer information and Project overview here.</p>
+</div>
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each releases.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+      <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each releases}}
+        <tr>
+            <td>{{this.releaseID}}</td>
+            <td>{{this.albumID}}</td>
+            <td>{{this.recordLabel}}</td>
+            <td>{{this.releaseDate}}</td>
+            <td>{{this.price}}</td>
+            
+
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

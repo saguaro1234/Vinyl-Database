@@ -1,0 +1,71 @@
+
+<h1>Vinyl Database</h1>
+<div class="homepageDescription">
+    <p>Gabe Happ-Shine Peter Battisti Group 95</p>
+</div>
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each albums.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+      <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each albums}}
+        <tr>
+            <td>{{this.albumID}}</td>
+            <td>{{this.title}}</td>
+            <form id='delete_album_form'>
+                <input type='hidden' name='delete_person_id' value='{{this.albumID}}' />
+                <input type='hidden' name='delete_person_name' value='{{this.title}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Create a Album</h2>
+<form class='cuForm' id='create_album_form'>
+    <label for='create_album_name'>Title: </label>
+    <input type='text' name='create_album_title' id='create_album_title' required />
+
+    
+
+    
+</form>
+{{! UPDATE form }}
+<h2>Update a Album</h2>
+<form class='cuForm' id='update_album_form'>
+    <label for='update_album_id'>Album to Update: </label>
+    <select name='update_album_id' id='update_album_id' required>
+        <option value='' disabled selected>Select an Album</option>
+        {{#each collectors}}
+        <option value='{{this.collectorID}}' required>
+            {{this.albumID}}
+            -
+            {{this.title}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
+
+   <label for="update_title">New Title:</label>
+    <input type="text" title="title" id="update_title" required />
+
+    <input type='submit' />
+</form>

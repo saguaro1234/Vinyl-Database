@@ -55,6 +55,30 @@ app.get('/bsg-people', async function (req, res) {
     }
 });
 
+app.get('/collectors', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT name, email, address
+                        FROM collectors
+                        ORDER BY name ASC;`;
+        
+        const [collectors] = await db.query(query1);
+        ;
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('collectors', { collectors: collectors });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+
 // ########################################
 // ########## LISTENER
 

@@ -1,6 +1,6 @@
-<h1>Home page</h1>
+<h1>Vinyl Database</h1>
 <div class="homepageDescription">
-    <p>Developer information and Project overview here.</p>
+    <p>Gabe Happ-Shine Peter Battisti Group 95</p>
 </div>
 <table>
     <thead>
@@ -22,7 +22,15 @@
             <td>{{this.name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.address}}</td>
-            
+            <form id='delete_collector_form'>
+                <input type='hidden' name='delete_person_id' value='{{this.collectorID}}' />
+                <input type='hidden' name='delete_person_name' value='{{this.name}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
 
             
         </tr>
@@ -30,4 +38,47 @@
     </tbody>
 </table>
 
+
+{{! CREATE form }}
+<h2>Create a Collector</h2>
+<form class='cuForm' id='create_collector_form'>
+    <label for='create_collector_name'>Name: </label>
+    <input type='text' name='create_collector_name' id='create_collector_name' required />
+
+    <label for='create_collector_email'>Email: </label>
+    <input type='text' name='create_collector_email' id='create_collector_email' required />
+
+    <label for='create_collector_address'>Address: </label>
+    <input type='text' name='create_collector_address' id='create_collector_address' required />
+
+    
+</form>
+
+{{! UPDATE form }}
+<h2>Update a Collector</h2>
+<form class='cuForm' id='update_collector_form'>
+    <label for='update_collector_id'>Person to Update: </label>
+    <select name='update_collector_id' id='update_collector_id' required>
+        <option value='' disabled selected>Select a Collector</option>
+        {{#each collectors}}
+        <option value='{{this.collectorID}}' required>
+            {{this.id}}
+            -
+            {{this.name}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for="update_name">Name:</label>
+    <input type="text" name="name" id="update_name" required />
+
+    <label for="update_email">Email:</label>
+    <input type="email" name="email" id="update_email" required />
+
+    <label for="update_address">Address:</label>
+    <input type="text" name="address" id="update_address" required />
+
+    <input type='submit' />
+</form>
 

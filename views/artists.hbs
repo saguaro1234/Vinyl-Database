@@ -1,0 +1,74 @@
+<h1>Vinyl Database</h1>
+<div class="homepageDescription">
+    <p>Gabe Happ-Shine Peter Battisti Group 95</p>
+</div>
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each artists.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+      <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each artists}}
+        <tr>
+            <td>{{this.artistID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.description}}</td>
+            <form id='delete_artist_form'>
+                <input type='hidden' name='delete_artist_id' value='{{this.artistID}}' />
+                <input type='hidden' name='delete_artist_name' value='{{this.name}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Create an Artist</h2>
+<form class='cuForm' id='create_artist_form'>
+    <label for='create_artist_name'>Name: </label>
+    <input type='text' name='create_artist_description' id='create_artist_description' required />
+
+    
+
+    
+</form>
+{{! UPDATE form }}
+<h2>Update an Artist</h2>
+<form class='cuForm' id='update_artist_form'>
+    <label for='update_artist_id'>Artist to Update: </label>
+    <select name='update_artist_id' id='update_artist_id' required>
+        <option value='' disabled selected>Select an Artist</option>
+        {{#each artists}}
+        <option value='{{this.artistID}}' required>
+            {{this.artistID}}
+            -
+            {{this.name}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
+
+   <label for="update_title">Artist Name:</label>
+    <input type="text" title="name" id="update_name" required />
+
+    <label for="update_description">Description:</label>
+    <input type="text" title="description" id="update_description" required />
+
+    <input type='submit' />
+</form>

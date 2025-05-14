@@ -185,11 +185,21 @@ app.get('/collector_has_release', async function (req, res) {
                         ;`;
         
         const [collectorsReleases] = await db.query(query1);
+        const query2 = `SELECT releaseID, albumID, recordLabel, releaseDate, price
+                        FROM Releases
+                        ORDER BY releaseID ASC;`;
+        
+        const [releases] = await db.query(query2);
+        const query3 = `SELECT name, email, address, collectorID
+                        FROM Collectors
+                        ORDER BY name ASC;`;
+        
+        const [collectors] = await db.query(query3);
         ;
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('collector_has_release', { collectorsReleases: collectorsReleases });
+        res.render('collector_has_release', { collectorsReleases: collectorsReleases, releases: releases, collectors: collectors });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser

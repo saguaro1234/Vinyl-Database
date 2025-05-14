@@ -38,3 +38,20 @@
         {{/each}}
     </tbody>
 </table>
+
+<h2>Update a Collector</h2>
+<form class='cuForm' id='update_collector_form'>
+    <label for='update_collector_id'>Person to Update: </label>
+    <select name='update_collector_id' id='update_collector_id' required>
+        <option value='' disabled selected>Select a Collector</option>
+        {{#each collectors}}
+        <option value='{{this.collectorID}}' required>
+            {{this.id}}
+            -
+            {{this.name}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+</form>

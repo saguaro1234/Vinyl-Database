@@ -38,6 +38,77 @@
     </tbody>
 </table>
 
+<h2>Add an Album to an Artist </h2>
+<form class='cuForm' id='add_album_to_artist_form'>
+    <label for='add_album_to_artist_id'>Artist: </label>
+    <select name='add_album_to_artist_id' id='add_album_to_artist_id' required>
+        <option value='' disabled selected>Select an Artist</option>
+        {{#each artists}}
+        <option value='{{this.artistID}}' required>
+            {{this.id}}
+            -
+            {{this.name}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='add_artist_to_album_id'>Album: </label>
+    <select name='add_artist_to_album_id' id='add_artist_to_album_id' required>
+        <option value='' disabled selected>Select an Album</option>
+        {{#each albums}}
+        <option value='{{this.albumID}}' required>
+            {{this.id}}
+            -
+            {{this.title}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
 
 
+</form>
+
+
+<h2>Update a Record:</h2>
+<form class='cuForm' id='update_album_artist_form'>
+    <label for='update_album_artist_id'>Record: </label>
+    <select name='update_album_artist_id' id='update_album_artist_id' required>
+        <option value='' disabled selected>Select a Record to Update:</option>
+        {{#each artistAlbum}}
+        <option value='{{this.artistHasAlbumID}}' required>
+            {{this.id}}
+            -
+            {{this.artistHasAlbumID}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_artist_has_album_id'>New Artist: </label>
+    <select name='update_artist_has_album_id' id='update_artist_has_album_id' required>
+        <option value='' disabled selected>Select an Artist: </option>
+        {{#each artists}}
+        <option value='{{this.artistID}}' required>
+            {{this.id}}
+            -
+            {{this.name}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_album_has_artist_id'>New Album: </label>
+    <select name='update_album_has_artist_id' id='update_album_has_artist_id' required>
+        <option value='' disabled selected>Select an Album</option>
+        {{#each albums}}
+        <option value='{{this.albumID}}' required>
+            {{this.id}}
+            -
+            {{this.title}}
+            
+        </option>
+        {{/each}}
+    </select>
 

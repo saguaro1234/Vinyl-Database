@@ -39,10 +39,10 @@
     </tbody>
 </table>
 
-<h2>Update a Collector</h2>
-<form class='cuForm' id='update_collector_form'>
-    <label for='update_collector_id'>Person to Update: </label>
-    <select name='update_collector_id' id='update_collector_id' required>
+<h2>Add a Release to a Collector</h2>
+<form class='cuForm' id='add_collecto_album_form'>
+    <label for='add_collector_album_id'>Collector: </label>
+    <select name='add_collector_album_id' id='add_collector_album_id' required>
         <option value='' disabled selected>Select a Collector</option>
         {{#each collectors}}
         <option value='{{this.collectorID}}' required>
@@ -53,5 +53,67 @@
         </option>
         {{/each}}
     </select>
+
+    <label for='add_album_collector_id'>Release: </label>
+    <select name='add_album_collector_id' id='add_album_collector_id' required>
+        <option value='' disabled selected>Select a Release</option>
+        {{#each releases}}
+        <option value='{{this.releaseID}}' required>
+            {{this.id}}
+            -
+            {{this.recordLabel}}
+            {{this.title}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+
+</form>
+
+
+<h2>Update a Record:</h2>
+<form class='cuForm' id='update_collecto_album_form'>
+    <label for='update_collector_album_id'>Record: </label>
+    <select name='update_collector_album_id' id='update_collector_album_id' required>
+        <option value='' disabled selected>Select a Record to Update:</option>
+        {{#each collectorsReleases}}
+        <option value='{{this.collectorHasReleaseID}}' required>
+            {{this.id}}
+            -
+            {{this.collectorHasReleaseID}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='add_collector_album_id'>New Collector: </label>
+    <select name='add_collector_album_id' id='add_collector_album_id' required>
+        <option value='' disabled selected>Select a Collector</option>
+        {{#each collectors}}
+        <option value='{{this.collectorID}}' required>
+            {{this.id}}
+            -
+            {{this.name}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='add_album_collector_id'>New Release: </label>
+    <select name='add_album_collector_id' id='add_album_collector_id' required>
+        <option value='' disabled selected>Select a Release</option>
+        {{#each releases}}
+        <option value='{{this.releaseID}}' required>
+            {{this.id}}
+            -
+            {{this.recordLabel}}
+            {{this.title}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+
 
 </form>

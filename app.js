@@ -83,16 +83,22 @@ app.get('/collectors-releases', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT releaseID, albumID, recordLabel, releaseDate, price
+        const query1 = `SELECT releaseID, Releases.albumID, recordLabel, releaseDate, price, Albums.title
                         FROM Releases
+                        INNER JOIN Albums on Releases.albumID = Albums.albumID
                         ORDER BY releaseID ASC;`;
         
         const [releases] = await db.query(query1);
+        const query2 = `SELECT albumID, title
+                        FROM Albums
+                        ORDER BY title ASC;`;
+        
+        const [albums] = await db.query(query2);
         ;
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('collectors-releases', { releases: releases });
+        res.render('collectors-releases', { releases: releases, albums: albums });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser

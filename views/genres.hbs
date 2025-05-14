@@ -1,0 +1,78 @@
+<h1>Vinyl Database</h1>
+<div class="homepageDescription">
+    <p>Gabe Happ-Shine Peter Battisti Group 95</p>
+</div>
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each genres.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+      <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each genres}}
+        <tr>
+            <td>{{this.genreID}}</td>
+            <td>{{this.description}}</td>
+            
+            <form id='delete_collector_form'>
+                <input type='hidden' name='delete_genre_id' value='{{this.genreID}}' />
+                <input type='hidden' name='delete_genre_name' value='{{this.description}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{! CREATE form }}
+<h2>Create a Genre</h2>
+<form class='cuForm' id='create_genre_form'>
+    <label for='create_genre_id'>Name: </label>
+    <input type='text' name='create_genre_id' id='create_genre_id' required />
+
+    <label for='create_genre_description'>Description: </label>
+    <input type='text' name='create_genre_description' id='create_genre_description' required />
+
+ 
+
+    
+    
+</form>
+
+{{! UPDATE form }}
+<h2>Update a Genre</h2>
+<form class='cuForm' id='update_genre_form'>
+    <label for='update_genre_id'>Genre to Update: </label>
+    <select name='update_genre_id' id='update_genre_id' required>
+        <option value='' disabled selected>Select a Genre</option>
+        {{#each genres}}
+        <option value='{{this.genreID}}' required>
+            {{this.genreID}}
+            -
+            {{this.description}}
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for="update_name">Name:</label>
+    <input type="text" name="name" id="update_name" required />
+
+    
+    <input type='submit' />
+</form>

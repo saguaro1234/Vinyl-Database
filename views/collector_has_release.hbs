@@ -1,0 +1,40 @@
+<h1>Vinyl Database</h1>
+<div class="homepageDescription">
+    <p>Gabe Happ-Shine Peter Battisti Group 95</p>
+</div>
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each collectorsReleases.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+      <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each collectorsReleases}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.recordLabel}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.collectorHasReleaseID}}</td>
+            <form id='delete_artistAlbum_form'>
+                <input type='hidden' name='delete_artistAlbum_id' value='{{this.collectorHasReleaseID}}' />
+                <input type='hidden' name='delete_person_name' value='{{this.recordLabel}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

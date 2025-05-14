@@ -102,8 +102,102 @@ app.get('/collectors-releases', async function (req, res) {
     }
 });
 
+app.get('/genres', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT genreID, description
+                        FROM Genres
+                        ORDER BY genreID ASC;`;
+        
+        const [genres] = await db.query(query1);
+        ;
 
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('genres', { genres: genres });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
 
+app.get('/artists', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT artistID, name, description
+                        FROM Artists
+                        ORDER BY name ASC;`;
+        
+        const [artists] = await db.query(query1);
+        ;
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('artists', { artists: artists });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.get('/artist_has_album', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT Artists.name, Albums.title, artistHasAlbumID
+                        FROM ArtistHasAlbum
+                        INNER JOIN Artists ON ArtistHasAlbum.artistID = Artists.artistID 
+                        INNER JOIN Albums ON ArtistHasAlbum.albumID = Albums.albumID
+                        ORDER BY Artists.artistID ASC;`;
+        
+        const [artistAlbum] = await db.query(query1);
+        ;
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('artist_has_album', { artistAlbum: artistAlbum });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.get('/collector_has_release', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT Collectors.name, Releases.recordLabel, Albums.title, collectorHasReleaseID
+                        FROM CollectorHasRelease
+                        INNER JOIN Collectors ON CollectorHasRelease.collectorID = Collectors.collectorID 
+                        INNER JOIN Releases ON CollectorHasRelease.releaseID = Releases.releaseID
+                        INNER JOIN Albums ON Releases.albumID = Albums.albumID
+                        ;`;
+        
+        const [collectorsReleases] = await db.query(query1);
+        ;
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('collector_has_release', { collectorsReleases: collectorsReleases });
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
 // ########################################
 // ########## LISTENER
 

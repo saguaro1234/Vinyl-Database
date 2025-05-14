@@ -83,16 +83,22 @@ app.get('/collectors-releases', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT releaseID, albumID, recordLabel, releaseDate, price
+        const query1 = `SELECT releaseID, Releases.albumID, recordLabel, releaseDate, price, Albums.title
                         FROM Releases
+                        INNER JOIN Albums on Releases.albumID = Albums.albumID
                         ORDER BY releaseID ASC;`;
         
         const [releases] = await db.query(query1);
+        const query2 = `SELECT albumID, title
+                        FROM Albums
+                        ORDER BY title ASC;`;
+        
+        const [albums] = await db.query(query2);
         ;
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('collectors-releases', { releases: releases });
+        res.render('collectors-releases', { releases: releases, albums: albums });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -159,11 +165,21 @@ app.get('/artist_has_album', async function (req, res) {
                         ORDER BY Artists.artistID ASC;`;
         
         const [artistAlbum] = await db.query(query1);
+         const query2 = `SELECT albumID, title
+                        FROM Albums
+                        ORDER BY title ASC;`;
+        
+        const [albums] = await db.query(query2);
+        const query3 = `SELECT artistID, name, description
+                        FROM Artists
+                        ORDER BY name ASC;`;
+        
+        const [artists] = await db.query(query3);
         ;
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('artist_has_album', { artistAlbum: artistAlbum });
+        res.render('artist_has_album', { artistAlbum: artistAlbum, albums: albums, artists: artists });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -185,13 +201,14 @@ app.get('/collector_has_release', async function (req, res) {
                         ;`;
         
         const [collectorsReleases] = await db.query(query1);
-        const query2 = `SELECT releaseID, albumID, recordLabel, releaseDate, price
+        const query2 = `SELECT releaseID, Releases.albumID, recordLabel, releaseDate, price, Albums.title
                         FROM Releases
+                        INNER JOIN Albums on Releases.albumID = Albums.albumID
                         ORDER BY releaseID ASC;`;
         
         const [releases] = await db.query(query2);
         const query3 = `SELECT name, email, address, collectorID
-                        FROM Collectors
+                        FROM Collectors 
                         ORDER BY name ASC;`;
         
         const [collectors] = await db.query(query3);

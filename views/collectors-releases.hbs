@@ -25,6 +25,7 @@
             <td>{{this.recordLabel}}</td>
             <td>{{this.releaseDate}}</td>
             <td>{{this.price}}</td>
+             <td>{{this.title}}</td>
             <form id='delete_release_form'>
                 <input type='hidden' name='delete_release_id' value='{{this.releaseID}}' />
                 <input type='hidden' name='delete_release_name' value='{{this.recordLabel}}' />
@@ -59,9 +60,21 @@
     min="0"
     required
 />
+<label for='add_album_to_release_id'>Album: </label>
+    <select name='add_album_to_release_id' id='add_album_to_release_id' required>
+        <option value='' disabled selected>Select an Album</option>
+        {{#each albums}}
+        <option value='{{this.albumID}}' required>
+            {{this.id}}
+            -
+            {{this.title}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
 
-
-    
+   <input type='submit' /> 
 </form>
 </form>
 {{! UPDATE form }}
@@ -71,25 +84,37 @@
     <select name='update_release_id' id='update_release_id' required>
         <option value='' disabled selected>Select a Release</option>
         {{#each releases}}
-        <option value='{{this.label}}' required>
-            {{this.releaseID}}
+        <option value='{{this.releaseID}}' required>
+            {{this.id}}
             -
-            {{this.label}}
-            {{this.date}}
-            {{this.price}}
+            {{this.releaseID}}
             
             
         </option>
         {{/each}}
     </select>
 
-    <label for="update_label">New Label:</label>
+    <label for='add_album_to_release_id'>Album: </label>
+    <select name='add_album_to_release_id' id='add_album_to_release_id' required>
+        <option value='' disabled selected>Select an Album</option>
+        {{#each albums}}
+        <option value='{{this.albumID}}' required>
+            {{this.id}}
+            -
+            {{this.title}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
+
+    <label for="update_label">Label:</label>
     <input type="text" label="label" id="update_label" required />
 
-    <label for="update_date">Date:</label>
+    <label for="update_date">New Date:</label>
     <input type="date" date="date" id="update_date" required />
 
-    <label for="update_price">Price:</label>
+    <label for="update_price">New Price:</label>
     <input type="number" name="price" id="update_price" step="0.01" min="0" required />
 
 

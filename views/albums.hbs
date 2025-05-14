@@ -45,7 +45,7 @@
 
     
 
-    
+    <input type='submit' />
 </form>
 {{! UPDATE form }}
 <h2>Update a Album</h2>
@@ -53,8 +53,8 @@
     <label for='update_album_id'>Album to Update: </label>
     <select name='update_album_id' id='update_album_id' required>
         <option value='' disabled selected>Select an Album</option>
-        {{#each collectors}}
-        <option value='{{this.collectorID}}' required>
+        {{#each albums}}
+        <option value='{{this.albumID}}' required>
             {{this.albumID}}
             -
             {{this.title}}

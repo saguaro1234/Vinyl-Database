@@ -321,6 +321,76 @@ app.post('/collectors/update', async function (req, res) {
     }
 });
 
+app.post('/artist_has_album/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        const data = req.body;
+
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+        const artistID = req.body.update_artist_has_album_id?.trim();
+        const albumID = req.body.update_album_has_artist_id?.trim();
+
+       
+        const query1 = 'CALL sp_UpdateArtistHasAlbum(?, ?, ?);';
+        const query2 = 'SELECT albumID, artistID FROM ArtistHasAlbum WHERE artistHasAlbumID = ?;';
+        await db.query(query1, [
+            data.update_album_artist_id,
+            artistID,
+            albumID
+        ]);
+        const [rows] = await db.query(query2, [data.update_album_artist_id]);
+
+        console.log(`UPDATE bsg-people. ID: ${data.update_album_artist_id} ` +
+            `Name: `
+        );
+
+        
+        res.redirect('/artist_has_album');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/collector_has_release/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        const data = req.body;
+
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+        const collectorID = req.body.add_collector_album_id?.trim();
+        const releaseID = req.body.add_album_collector_id?.trim();
+
+       
+        const query1 = 'CALL sp_UpdateCollectorHasRelease(?, ?, ?);';
+        const query2 = 'SELECT collectorID, releaseID FROM CollectorHasRelease WHERE collectorHasReleaseID = ?;';
+        await db.query(query1, [
+            data.update_collector_has_album_id,
+            collectorID,
+            releaseID
+        ]);
+        const [rows] = await db.query(query2, [data.update_collector_has_album_id]);
+
+        console.log(`UPDATE bsg-people. ID: ${data.update_collector_has_album_id} ` +
+            `Name: `
+        );
+
+        
+        res.redirect('/artist_has_album');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
 app.post('/update', async function (req, res) {
     try {
         // Parse frontend form information

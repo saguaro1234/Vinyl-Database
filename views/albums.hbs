@@ -42,7 +42,19 @@
 <form class='cuForm' id='create_album_form'>
     <label for='create_album_name'>Title: </label>
     <input type='text' name='create_album_title' id='create_album_title' required />
-
+    <label for='update_album_id'>Genre: </label>
+    <select name='update_album_id' id='update_album_id' required>
+        <option value='' disabled selected>Select a Genre</option>
+        {{#each genres}}
+        <option value='{{this.genreID}}' required>
+            {{this.ID}}
+            -
+            {{this.genreID}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
     
 
     <input type='submit' />
@@ -67,5 +79,20 @@
    <label for="update_title">New Title:</label>
     <input type="text" title="title" id="update_title" required />
 
+    <label for='update_album_id'>New Genre: </label>
+    <select name='update_album_id' id='update_album_id' required>
+        <option value='' disabled selected>Select a Genre</option>
+        {{#each genres}}
+        <option value='{{this.genreID}}' required>
+            {{this.ID}}
+            -
+            {{this.genreID}}
+            
+            
+        </option>
+        {{/each}}
+    </select>
+    
     <input type='submit' />
+    
 </form>

@@ -65,11 +65,16 @@ app.get('/albums', async function (req, res) {
                         ORDER BY title ASC;`;
         
         const [albums] = await db.query(query1);
+        const query2 = `SELECT genreID, description
+                        FROM Genres
+                        ORDER BY genreID ASC;`;
+        
+        const [genres] = await db.query(query2);
         ;
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('albums', { albums: albums });
+        res.render('albums', { albums: albums, genres: genres });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -79,7 +84,7 @@ app.get('/albums', async function (req, res) {
     }
 });
 
-app.get('/collectors-releases', async function (req, res) {
+app.get('/releases', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
@@ -98,7 +103,7 @@ app.get('/collectors-releases', async function (req, res) {
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('collectors-releases', { releases: releases, albums: albums });
+        res.render('releases', { releases: releases, albums: albums });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -225,6 +230,88 @@ app.get('/collector_has_release', async function (req, res) {
         );
     }
 });
+
+app.post('/genres/update', async function (req, res) {
+    try {
+        const genreID = req.body.update_genre_id?.trim();
+        const description = req.body.update_description?.trim();
+
+       
+
+        const query1 = 'CALL sp_UpdateGenre(?, ?);';
+        await db.query(query1, [genreID, description]);
+
+        console.log(`Genre updated: ID = ${genreID}, Description = ${description}`);
+        res.redirect('/genres');
+    } catch (error) {
+        console.error('Error updating genre:', error);
+        res.status(500).send('An error occurred.');
+    }
+});
+
+app.post('/artists/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        const data = req.body;
+
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+        const name = req.body.update_artist_name?.trim();
+        const description = req.body.update_artist_description?.trim();
+
+       
+        const query1 = 'CALL sp_UpdateArtist(?, ?, ?);';
+        const query2 = 'SELECT name, description FROM Artists WHERE artistID = ?;';
+        await db.query(query1, [
+            data.update_artist_id,
+            name,
+            description
+        ]);
+        const [rows] = await db.query(query2, [data.update_artist_id]);
+
+        console.log(`UPDATE bsg-people. ID: ${data.update_artist_id} ` +
+            `Name: `
+        );
+
+        
+        res.redirect('/artists');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+       
+
+       
+        const query1 = 'CALL sp_ResetDatabase();';
+       
+        await db.query(query1);
+      
+
+        
+
+        
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+
 // ########################################
 // ########## LISTENER
 

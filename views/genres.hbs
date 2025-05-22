@@ -56,7 +56,7 @@
 
 {{! UPDATE form }}
 <h2>Update a Genre</h2>
-<form class='cuForm' id='update_genre_form'>
+<form class='cuForm' id='update_genre_form' method='POST' action="/genres/update">
     <label for='update_genre_id'>Genre to Update: </label>
     <select name='update_genre_id' id='update_genre_id' required>
         <option value='' disabled selected>Select a Genre</option>
@@ -70,8 +70,10 @@
         {{/each}}
     </select>
 
-    <label for="update_name">Name:</label>
-    <input type="text" name="name" id="update_name" required />
+    
+
+    <label for="update_description">Description:</label>
+    <input type="text" name="update_description" id="update_description" required />
 
     
     <input type='submit' />

@@ -73,7 +73,7 @@
 
 
 <h2>Update a Record:</h2>
-<form class='cuForm' id='update_collector_has_album_form'>
+<form class='cuForm' id='update_collector_has_album_form' method='POST' action="/collector_has_release/update">
     <label for='update_collector_has_album_id'>Record: </label>
     <select name='update_collector_has_album_id' id='update_collector_has_album_id' required>
         <option value='' disabled selected>Select a Record to Update:</option>
@@ -87,8 +87,8 @@
         {{/each}}
     </select>
 
-    <label for='add_collector_album_id'>New Collector: </label>
-    <select name='add_collector_album_id' id='add_collector_album_id' required>
+    <label for='update_collector_id'>New Collector: </label>
+    <select name='update_collector_id' id='update_collector_id' required>
         <option value='' disabled selected>Select a Collector</option>
         {{#each collectors}}
         <option value='{{this.collectorID}}' required>
@@ -100,8 +100,8 @@
         {{/each}}
     </select>
 
-    <label for='add_album_collector_id'>New Release: </label>
-    <select name='add_album_collector_id' id='add_album_collector_id' required>
+    <label for='update_release_id'>New Release: </label>
+    <select name='update_release_id' id='update_release_id' required>
         <option value='' disabled selected>Select a Release</option>
         {{#each releases}}
         <option value='{{this.releaseID}}' required>

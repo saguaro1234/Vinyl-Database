@@ -61,7 +61,7 @@
 </form>
 {{! UPDATE form }}
 <h2>Update a Album</h2>
-<form class='cuForm' id='update_album_form'>
+<form class='cuForm' id='update_album_form' method='POST' action="/albums/update">
     <label for='update_album_id'>Album to Update: </label>
     <select name='update_album_id' id='update_album_id' required>
         <option value='' disabled selected>Select an Album</option>
@@ -76,11 +76,11 @@
         {{/each}}
     </select>
 
-   <label for="update_title">New Title:</label>
-    <input type="text" title="title" id="update_title" required />
+   <label for="update_album_title">New Title:</label>
+    <input type="text" name="update_album_title" id="update_album_title" required />
 
-    <label for='update_album_id'>New Genre: </label>
-    <select name='update_album_id' id='update_album_id' required>
+    <label for='update_album_genre'>New Genre: </label>
+    <select name='update_album_genre' id='update_album_genre' required>
         <option value='' disabled selected>Select a Genre</option>
         {{#each genres}}
         <option value='{{this.genreID}}' required>

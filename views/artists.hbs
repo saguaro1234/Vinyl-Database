@@ -51,7 +51,7 @@
 </form>
 {{! UPDATE form }}
 <h2>Update an Artist</h2>
-<form class='cuForm' id='update_artist_form'>
+<form class='cuForm' id='update_artist_form' method='POST' action="/artists/update">
     <label for='update_artist_id'>Artist to Update: </label>
     <select name='update_artist_id' id='update_artist_id' required>
         <option value='' disabled selected>Select an Artist</option>
@@ -66,11 +66,11 @@
         {{/each}}
     </select>
 
-   <label for="update_title">Artist Name:</label>
-    <input type="text" title="name" id="update_name" required />
+   <label for="update_artist_name">Artist Name:</label>
+    <input type="text" name="update_artist_name" id="update_artist_name" required />
 
-    <label for="update_description">Description:</label>
-    <input type="text" title="description" id="update_description" required />
+    <label for="update_artist_description">Description:</label>
+    <input type="text" name="update_artist_description" id="update_description" required />
 
     <input type='submit' />
 </form>

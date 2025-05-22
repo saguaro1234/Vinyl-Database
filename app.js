@@ -381,7 +381,7 @@ app.post('/collector_has_release/update', async function (req, res) {
         );
 
         
-        res.redirect('/artist_has_album');
+        res.redirect('/collector_has_release');
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser

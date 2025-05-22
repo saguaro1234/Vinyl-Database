@@ -60,7 +60,7 @@ app.get('/albums', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT albumID, title
+        const query1 = `SELECT albumID, title, genreID
                         FROM Albums
                         ORDER BY title ASC;`;
         

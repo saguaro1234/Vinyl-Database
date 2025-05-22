@@ -17,14 +17,16 @@
     </thead>
 
       <tbody>
-        {{! For each row, print the id, fname, lname, homeworld and age }}
-        {{#each albums}}
+         {{#each albums}}
         <tr>
             <td>{{this.albumID}}</td>
             <td>{{this.title}}</td>
+            <td>{{this.genreID}}</td>
+            
             <form id='delete_album_form'>
                 <input type='hidden' name='delete_person_id' value='{{this.albumID}}' />
                 <input type='hidden' name='delete_person_name' value='{{this.title}}' />
+                
                 <td>
                     <button type='submit'>
                         Delete

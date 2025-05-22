@@ -284,6 +284,78 @@ app.post('/artists/update', async function (req, res) {
     }
 });
 
+app.post('/releases/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        const data = req.body;
+
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+        const record_label = req.body.update_release_label?.trim();
+        
+
+       
+        const query1 = 'CALL sp_UpdateRelease(?, ?, ?, ?, ?);';
+        const query2 = 'SELECT albumID, releaseDate, recordLabel, price FROM Releases WHERE releaseID = ?;';
+        await db.query(query1, [
+            data.update_release_id,
+            data.update_album_id,
+            data.update_release_date,
+            record_label,
+            data.update_release_price
+        ]);
+        const [rows] = await db.query(query2, [data.update_release_id]);
+
+        console.log(`UPDATE bsg-people. ID: ${data.update_release_id} ` +
+            `Name: `
+        );
+
+        
+        res.redirect('/releases');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/albums/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        const data = req.body;
+
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+        const genre = req.body.update_album_genre?.trim();
+        const title = req.body.update_album_title?.trim();
+
+       
+        const query1 = 'CALL sp_UpdateAlbum(?, ?, ?);';
+        const query2 = 'SELECT genreID, title FROM Albums WHERE albumID = ?;';
+        await db.query(query1, [
+            data.update_album_id,
+            title,
+            genre
+        ]);
+        const [rows] = await db.query(query2, [data.update_album_id]);
+
+        console.log(`UPDATE bsg-people. ID: ${data.update_album_id} ` +
+            `Name: `
+        );
+
+        
+        res.redirect('/albums');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
 app.post('/update', async function (req, res) {
     try {
         // Parse frontend form information

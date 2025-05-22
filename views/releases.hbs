@@ -78,8 +78,8 @@
 </form>
 </form>
 {{! UPDATE form }}
-<h2>Update a Album</h2>
-<form class='cuForm' id='update_release_form'>
+<h2>Update a Release</h2>
+<form class='cuForm' id='update_release_form' method='POST' action="/releases/update">
     <label for='update_release_id'>Release to Update: </label>
     <select name='update_release_id' id='update_release_id' required>
         <option value='' disabled selected>Select a Release</option>
@@ -94,12 +94,12 @@
         {{/each}}
     </select>
 
-    <label for='add_album_to_release_id'>Album: </label>
-    <select name='add_album_to_release_id' id='add_album_to_release_id' required>
+    <label for='update_album_id'>Album: </label>
+    <select name='update_album_id' id='update_album_id' required>
         <option value='' disabled selected>Select an Album</option>
         {{#each albums}}
         <option value='{{this.albumID}}' required>
-            {{this.id}}
+            {{this.albumID}}
             -
             {{this.title}}
             
@@ -108,14 +108,14 @@
         {{/each}}
     </select>
 
-    <label for="update_label">Label:</label>
-    <input type="text" label="label" id="update_label" required />
+    <label for="update_release_label">Label:</label>
+    <input type="text" name="update_release_label" id="update_release_label" required />
 
-    <label for="update_date">New Date:</label>
-    <input type="date" date="date" id="update_date" required />
+    <label for="update_release_date">New Date:</label>
+    <input type="date" name="update_release_date" id="update_release_date" required />
 
-    <label for="update_price">New Price:</label>
-    <input type="number" name="price" id="update_price" step="0.01" min="0" required />
+    <label for="update_release_price">New Price:</label>
+    <input type="number" name="update_release_price" id="update_release_price" step="0.01" min="0" required />
 
 
     <input type='submit' />

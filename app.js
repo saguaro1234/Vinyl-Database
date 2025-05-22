@@ -284,6 +284,43 @@ app.post('/artists/update', async function (req, res) {
     }
 });
 
+app.post('/collectors/update', async function (req, res) {
+    try {
+        // Parse frontend form information
+        const data = req.body;
+
+        // Cleanse data - If the homeworld or age aren't numbers, make them NULL.
+        
+        const name = req.body.update_name?.trim();
+        const email = req.body.update_email?.trim();
+        const address = req.body.update_address?.trim();
+
+       
+        const query1 = 'CALL sp_UpdateCollector(?, ?, ?, ?);';
+        const query2 = 'SELECT name, email, address FROM Collectors WHERE collectorID = ?;';
+        await db.query(query1, [
+            data.update_collector_id,
+            name,
+            email,
+            address
+        ]);
+        const [rows] = await db.query(query2, [data.update_collector_id]);
+
+        console.log(`UPDATE bsg-people. ID: ${data.update_collector_id} ` +
+            `Name: `
+        );
+
+        
+        res.redirect('/collectors');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
 app.post('/update', async function (req, res) {
     try {
         // Parse frontend form information

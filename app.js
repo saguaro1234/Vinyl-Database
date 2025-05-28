@@ -497,16 +497,45 @@ app.post('/artists/create', async function (req, res){
             
         ]);
         res.redirect('/artists');
-    }
-     catch (error) {
+    } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
         res.status(500).send(
             'An error occurred while executing the database queries.'
         );
     }
+});
 
-} )
+app.post('/collectors/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateCollector(?, ?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.create_collector_name,
+            data.create_collector_email,
+            data.create_collector_address,
+        ]);
+
+        console.log(`CREATE Collector. ID: ${rows.new_id} ` +
+            `Name: ${data.create_collector_name}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/collectors');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
 
 app.post('/artist_has_album/create', async function (req, res){
     try {
@@ -520,16 +549,136 @@ app.post('/artist_has_album/create', async function (req, res){
             
         ]);
         res.redirect('/artist_has_album');
-    }
-     catch (error) {
+    } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
         res.status(500).send(
             'An error occurred while executing the database queries.'
         );
     }
+});
 
-} )
+app.post('/albums/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateAlbum(?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.choose_genre_id,
+            data.create_album_title,
+        ]);
+
+        console.log(`CREATE Album. ID: ${rows.new_id} ` +
+            `Title: ${data.create_album_title}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/albums');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/genres/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateGenre(?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.create_genre_id,
+            data.create_genre_description,
+        ]);
+
+        console.log(`CREATE Genre. ID: ${rows.new_id} ` +
+            `Name: ${data.create_genre_id}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/genres');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/releases/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateRelease(?, ?, ?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.add_album_to_release_id,
+            data.create_release_date,
+            data.create_release_label,
+            data.create_release_price,
+        ]);
+
+        console.log(`CREATE Release. ID: ${rows.new_id} ` +
+            `Name: ${data.create_release_label}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/releases');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/collector_has_release/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateCollectorHasRelease(?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.add_collector_album_id,
+            data.add_album_collector_id,
+        ]);
+
+        console.log(`CREATE CollectorHasRelease. ID: ${rows.new_id} ` +
+            `Name: ${data.add_collector_album_id} ${data.add_album_collector_id}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/collector_has_release');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
 
 // ########################################
 // ########## LISTENER

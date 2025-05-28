@@ -39,9 +39,9 @@
 </table>
 
 <h2>Add an Album to an Artist </h2>
-<form class='cuForm' id='add_album_to_artist_form'>
-    <label for='add_album_to_artist_id'>Artist: </label>
-    <select name='add_album_to_artist_id' id='add_album_to_artist_id' required>
+<form class='cuForm' id='add_album_to_artist_form' method='POST' action="/artist_has_album/create">
+    <label for='add_artist'>Artist: </label>
+    <select name='add_artist' id='add_artist' required>
         <option value='' disabled selected>Select an Artist</option>
         {{#each artists}}
         <option value='{{this.artistID}}' required>
@@ -53,8 +53,8 @@
         {{/each}}
     </select>
 
-    <label for='add_artist_to_album_id'>Album: </label>
-    <select name='add_artist_to_album_id' id='add_artist_to_album_id' required>
+    <label for='add_album'>Album: </label>
+    <select name='add_album' id='add_album' required>
         <option value='' disabled selected>Select an Album</option>
         {{#each albums}}
         <option value='{{this.albumID}}' required>

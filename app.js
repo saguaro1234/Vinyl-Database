@@ -485,6 +485,27 @@ app.post('/update', async function (req, res) {
     }
 });
 
+app.post('/artists/create', async function (req, res){
+    try {
+        let data = req.body;
+
+        const query1 = 'CALL sp_CreateArtist(?, ?, @new_id);';
+       
+        const [[[rows]]] = await db.query(query1, [
+            data.create_name,
+            data.create_description
+            
+        ]);
+        res.redirect('/artists');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
 app.post('/collectors/create', async function (req, res) {
     try {
         // Parse frontend form information
@@ -507,6 +528,27 @@ app.post('/collectors/create', async function (req, res) {
 
         // Redirect the user to the updated webpage
         res.redirect('/collectors');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/artist_has_album/create', async function (req, res){
+    try {
+        let data = req.body;
+
+        const query1 = 'CALL sp_CreateArtistHasAlbum(?, ?, @new_id);';
+       
+        const [[[rows]]] = await db.query(query1, [
+            data.add_album,
+            data.add_artist
+            
+        ]);
+        res.redirect('/artist_has_album');
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser

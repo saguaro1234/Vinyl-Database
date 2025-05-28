@@ -39,12 +39,12 @@
 </table>
 
 <h2>Create an Artist</h2>
-<form class='cuForm' id='create_artist_form'>
-    <label for='create_artist_name'>Name: </label>
-    <input type='text' name='create_artist_name' id='create_artist_name' required />
+<form class='cuForm' id='create_artist_form' method='POST' action='/artists/create'>
+    <label for='create_name'>Name: </label>
+    <input type='text' name='create_name' id='create_name' required />
 
-     <label for='create_artist_description'>Description: </label>
-    <input type='text' name='create_artist_description' id='create_artist_description' required />
+     <label for='create_description'>Description: </label>
+    <input type='text' name='create_description' id='create_description' required />
     
 
     <input type='submit' />

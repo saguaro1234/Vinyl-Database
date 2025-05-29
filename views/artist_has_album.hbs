@@ -22,9 +22,9 @@
             <td>{{this.name}}</td>
             <td>{{this.title}}</td>
             <td>{{this.artistHasAlbumID}}</td>
-            <form id='delete_artistAlbum_form'>
+            <form id='delete_artistAlbum_form' method='POST' action="/artist_has_album/delete">
                 <input type='hidden' name='delete_artistAlbum_id' value='{{this.artistHasAlbumID}}' />
-                <input type='hidden' name='delete_person_name' value='{{this.title}}' />
+                <input type='hidden' name='delete_artistAlbum_name' value='{{this.title}}' />
                 <td>
                     <button type='submit'>
                         Delete

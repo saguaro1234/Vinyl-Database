@@ -23,9 +23,9 @@
             <td>{{this.title}}</td>
             <td>{{this.genreID}}</td>
             
-            <form id='delete_album_form'>
-                <input type='hidden' name='delete_person_id' value='{{this.albumID}}' />
-                <input type='hidden' name='delete_person_name' value='{{this.title}}' />
+            <form id='delete_album_form' method='POST' action="/albums/delete">
+                <input type='hidden' name='delete_album_id' value='{{this.albumID}}' />
+                <input type='hidden' name='delete_album_name' value='{{this.title}}' />
                 
                 <td>
                     <button type='submit'>
@@ -44,8 +44,8 @@
 <form class='cuForm' id='create_album_form' method='POST' action='/albums/create'>
     <label for='create_album_title'>Title: </label>
     <input type='text' name='create_album_title' id='create_album_title' required />
-    <label for='choose_genre_id'>Genre: </label>
-    <select name='choose_genre_id' id='choose_genre_id' required>
+    <label for='choose_genre'>Genre: </label>
+    <select name='choose_genre' id='choose_genre' required>
         <option value='' disabled selected>Select a Genre</option>
         {{#each genres}}
         <option value='{{this.genreID}}' required>

@@ -474,8 +474,8 @@ app.post('/update', async function (req, res) {
 
         
 
-        
         res.redirect('/');
+        
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -569,8 +569,9 @@ app.post('/albums/create', async function (req, res) {
 
         // Store ID of last inserted row
         const [[[rows]]] = await db.query(query1, [
-            data.choose_genre_id,
+            
             data.create_album_title,
+            data.choose_genre
         ]);
 
         console.log(`CREATE Album. ID: ${rows.new_id} ` +
@@ -680,6 +681,334 @@ app.post('/collector_has_release/create', async function (req, res) {
     }
 });
 
+app.post('/collectors/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateCollector(?, ?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.create_collector_name,
+            data.create_collector_email,
+            data.create_collector_address,
+        ]);
+
+        console.log(`CREATE Collector. ID: ${rows.new_id} ` +
+            `Name: ${data.create_collector_name}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/collectors');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/albums/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateAlbum(?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            
+            data.create_album_title,
+            data.choose_genre
+        ]);
+
+        console.log(`CREATE Album. ID: ${rows.new_id} ` +
+            `Title: ${data.create_album_title}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/albums');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/releases/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateRelease(?, ?, ?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.add_album_to_release_id,
+            data.create_release_date,
+            data.create_release_label,
+            data.create_release_price,
+        ]);
+
+        console.log(`CREATE Release. ID: ${rows.new_id} ` +
+            `Name: ${data.create_release_label}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/releases');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+app.post('/collector_has_release/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateCollectorHasRelease(?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.add_collector_album_id,
+            data.add_album_collector_id,
+        ]);
+
+        console.log(`CREATE CollectorHasRelease. ID: ${rows.new_id} ` +
+            `Name: ${data.add_collector_album_id} ${data.add_album_collector_id}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/collector_has_release');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/genres/create', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our queries
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_CreateGenre(?, ?, @new_id);`;
+
+        // Store ID of last inserted row
+        const [[[rows]]] = await db.query(query1, [
+            data.create_genre_id,
+            data.create_genre_description,
+        ]);
+
+        console.log(`CREATE Genre. ID: ${rows.new_id} ` +
+            `Name: ${data.create_genre_id}`
+        );
+
+        // Redirect the user to the updated webpage
+        res.redirect('/genres');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/artists/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteArtist(?);`;
+        await db.query(query1, [data.delete_artist_id]);
+
+        console.log(`DELETE artist. ID: ${data.delete_artist_id} ` +
+            `Name: ${data.delete_artist_id}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/artists');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/genres/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteGenre(?);`;
+        await db.query(query1, [data.delete_genre_id]);
+
+        console.log(`DELETE genre. ID: ${data.delete_genre_id} ` +
+            `Name: ${data.delete_genre_id}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/genres');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/albums/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteAlbum(?);`;
+        await db.query(query1, [data.delete_album_id]);
+
+        console.log(`DELETE genre. ID: ${data.delete_album_id} ` +
+            `Name: ${data.delete_album_id}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/albums');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+
+app.post('/collectors/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteCollector(?);`;
+        await db.query(query1, [data.delete_collector_id]);
+
+        console.log(`DELETE collector. ID: ${data.delete_collector_id} ` +
+            `Name: ${data.delete_collector_id}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/collectors');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/releases/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteRelease(?);`;
+        await db.query(query1, [data.delete_release_id]);
+
+        console.log(`DELETE release. ID: ${data.delete_release_id} ` +
+            `Name: ${data.delete_release_name}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/releases');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/artist_has_album/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteArtistHasAlbum(?);`;
+        await db.query(query1, [data.delete_artistAlbum_id]);
+
+        console.log(`DELETE artist_has_album. ID: ${data.delete_artistAlbum_id} ` +
+            `Name: ${data.delete_artistAlbum_name}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/artist_has_album');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+app.post('/collector_has_release/delete', async function (req, res) {
+    try {
+        // Parse frontend form information
+        let data = req.body;
+
+        // Create and execute our query
+        // Using parameterized queries (Prevents SQL injection attacks)
+        const query1 = `CALL sp_DeleteCollectorHasRelease(?);`;
+        await db.query(query1, [data.delete_collectorRelease_id]);
+
+        console.log(`DELETE collector_has_release. ID: ${data.delete_collectorRelease_id} ` +
+            `Name: ${data.delete_collectorRelease_name}`
+        );
+
+        // Redirect the user to the updated webpage data
+        res.redirect('/collector_has_release');
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
 // ########################################
 // ########## LISTENER
 

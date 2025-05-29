@@ -23,7 +23,7 @@
             
             <td>{{this.description}}</td>
             
-            <form id='delete_collector_form'>
+            <form id='delete_collector_form' method='POST' action="/genres/delete">
                 <input type='hidden' name='delete_genre_id' value='{{this.genreID}}' />
                 <input type='hidden' name='delete_genre_name' value='{{this.description}}' />
                 <td>

@@ -23,9 +23,9 @@
             <td>{{this.recordLabel}}</td>
             <td>{{this.title}}</td>
             <td>{{this.collectorHasReleaseID}}</td>
-            <form id='delete_artistAlbum_form'>
-                <input type='hidden' name='delete_artistAlbum_id' value='{{this.collectorHasReleaseID}}' />
-                <input type='hidden' name='delete_person_name' value='{{this.recordLabel}}' />
+            <form id='delete_artistAlbum_form' method='POST' action='/collector_has_release/delete'>
+                <input type='hidden' name='delete_collectorRelease_id' value='{{this.collectorHasReleaseID}}' />
+                <input type='hidden' name='delete_collectorRelease_name' value='{{this.recordLabel}}' />
                 <td>
                     <button type='submit'>
                         Delete
@@ -40,7 +40,7 @@
 </table>
 
 <h2>Add a Release to a Collector</h2>
-<form class='cuForm' id='add_collecto_album_form'>
+<form class='cuForm' id='add_collecto_album_form' method='POST' action='/collector_has_release/create'>
     <label for='add_collector_album_id'>Collector: </label>
     <select name='add_collector_album_id' id='add_collector_album_id' required>
         <option value='' disabled selected>Select a Collector</option>

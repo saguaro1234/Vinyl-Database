@@ -22,9 +22,9 @@
             <td>{{this.name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.address}}</td>
-            <form id='delete_collector_form'>
-                <input type='hidden' name='delete_person_id' value='{{this.collectorID}}' />
-                <input type='hidden' name='delete_person_name' value='{{this.name}}' />
+            <form id='delete_collector_form' method='POST' action="/collectors/delete">
+                <input type='hidden' name='delete_collector_id' value='{{this.collectorID}}' />
+                <input type='hidden' name='delete_collector_name' value='{{this.name}}' />
                 <td>
                     <button type='submit'>
                         Delete

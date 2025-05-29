@@ -26,7 +26,7 @@
             <td>{{this.releaseDate}}</td>
             <td>{{this.price}}</td>
              <td>{{this.title}}</td>
-            <form id='delete_release_form'>
+            <form id='delete_release_form' method='POST' action="/releases/delete">
                 <input type='hidden' name='delete_release_id' value='{{this.releaseID}}' />
                 <input type='hidden' name='delete_release_name' value='{{this.recordLabel}}' />
                 <td>

@@ -42,7 +42,7 @@ app.get('/collectors', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT name AS Name, email AS Email, address AS Address, collectorID
+        const query1 = `SELECT name, email, address, collectorID
                         FROM Collectors
                         ORDER BY name ASC;`;
         
@@ -66,7 +66,7 @@ app.get('/albums', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT albumID, title AS Album Title, genreID
+        const query1 = `SELECT albumID, title, genreID
                         FROM Albums
                         ORDER BY title ASC;`;
         
@@ -94,7 +94,7 @@ app.get('/releases', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT releaseID, Releases.albumID, recordLabel AS Record Label, releaseDate AS Release Date, price AS Price, Albums.title AS Album Title
+        const query1 = `SELECT releaseID, Releases.albumID, recordLabel, releaseDate, price, Albums.title
                         FROM Releases
                         INNER JOIN Albums on Releases.albumID = Albums.albumID
                         ORDER BY releaseID ASC;`;
@@ -123,7 +123,7 @@ app.get('/genres', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT genreID, description AS Description
+        const query1 = `SELECT genreID, description
                         FROM Genres
                         ORDER BY genreID ASC;`;
         
@@ -146,7 +146,7 @@ app.get('/artists', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT artistID, name AS Artist Name, description AS Description
+        const query1 = `SELECT artistID, name, description
                         FROM Artists
                         ORDER BY name ASC;`;
         
@@ -169,7 +169,7 @@ app.get('/artist_has_album', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT Artists.name AS Artist Name, Albums.title AS Album Title, artistHasAlbumID
+        const query1 = `SELECT Artists.name, Albums.title, artistHasAlbumID
                         FROM ArtistHasAlbum
                         INNER JOIN Artists ON ArtistHasAlbum.artistID = Artists.artistID 
                         INNER JOIN Albums ON ArtistHasAlbum.albumID = Albums.albumID
@@ -204,7 +204,7 @@ app.get('/collector_has_release', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT Collectors.name AS Collector, Releases.recordLabel AS Record Label, Albums.title AS Album Title, collectorHasReleaseID
+        const query1 = `SELECT Collectors.name, Releases.recordLabel, Albums.title, collectorHasReleaseID
                         FROM CollectorHasRelease
                         INNER JOIN Collectors ON CollectorHasRelease.collectorID = Collectors.collectorID 
                         INNER JOIN Releases ON CollectorHasRelease.releaseID = Releases.releaseID

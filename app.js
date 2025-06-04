@@ -42,7 +42,7 @@ app.get('/collectors', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT name, email, address, collectorID
+        const query1 = `SELECT collectorID, name, email, address
                         FROM Collectors
                         ORDER BY name ASC;`;
         
@@ -100,6 +100,9 @@ app.get('/releases', async function (req, res) {
                         ORDER BY releaseID ASC;`;
         
         const [releases] = await db.query(query1);
+        
+        releases.forEach(release => {
+        release.releaseDate = release.releaseDate.toISOString().split('T')[0];});
         const query2 = `SELECT albumID, title
                         FROM Albums
                         ORDER BY title ASC;`;
@@ -480,7 +483,7 @@ app.post('/update', async function (req, res) {
 
         
 
-        res.redirect('/');
+        res.redirect(req.get('referer'));
         
     } catch (error) {
         console.error('Error executing queries:', error);

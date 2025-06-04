@@ -6,11 +6,11 @@
     <thead>
         {{! For the table header row, we print the DB attribute names }}
         <tr>
-            {{#each collectors.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Collector ID</th>
+            <th>Name</th>
+            
+            <th>Email</th>
+            <th>Address</th>
             <th></th>
         </tr>
     </thead>
@@ -19,9 +19,11 @@
         {{! For each row, print the id, fname, lname, homeworld and age }}
         {{#each collectors}}
         <tr>
+            <td>{{this.collectorID}}</td>
             <td>{{this.name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.address}}</td>
+
             <form id='delete_collector_form' method='POST' action="/collectors/delete">
                 <input type='hidden' name='delete_collector_id' value='{{this.collectorID}}' />
                 <input type='hidden' name='delete_collector_name' value='{{this.name}}' />

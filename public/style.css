@@ -1,7 +1,7 @@
 h1, h2 { margin-left: 16px;}
 table {border-collapse: collapse;margin-left: 32px;}
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd;
     padding: 12px;
     text-align: center;
 }

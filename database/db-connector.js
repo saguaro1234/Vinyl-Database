@@ -1,3 +1,9 @@
+// Citation for the following code:
+// Date: 5/29/2025
+// Copied from /OR/ Adapted from /OR/ Based on:
+// Source URL: https://canvas.oregonstate.edu/courses/1999601/pages/exploration-implementing-cud-operations-in-your-app?module_item_id=25352968
+// Our project was adapted from the starter code on Canvas.
+
 require('dotenv').config();
 const mysql = require('mysql2');
 
